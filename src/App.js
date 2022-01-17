@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import UserMenu from './components/header_logout/UserMenu'
@@ -7,7 +7,9 @@ import LogIn from './components/login_view/Login';
 import Register from './components/register_view/Register';
 import Tasks from './components/tasks_view/Tasks';
 import routes from './routes/routes';
-function App() {
+import { connect } from 'react-redux';
+class App extends Component{
+  render(){
   let { home, register, login, tasks } = routes;
   return (
     <div className="App">
@@ -15,7 +17,9 @@ function App() {
         <Link to={register}>Register </Link>
         <Link to={login}>Log in </Link>
         <Link to={tasks}>Tasks </Link>
-        <UserMenu></UserMenu> 
+        {this.props.token !== "" &&
+            (<UserMenu></UserMenu>) 
+        }
         <Routes>
           <Route path={home} element={<Home />} />
           <Route path={login} element={<LogIn />} />
@@ -25,5 +29,10 @@ function App() {
     </div>
   );
 }
-
-export default App;
+}
+const mapStateToProps = state =>{
+  return{
+    token: state.auth.token_users,
+  } 
+}
+export default connect(mapStateToProps ,null)(App);

@@ -16,14 +16,19 @@ export default class LoginForm extends Component{
     }
     handleClick = () =>{
         this.props.onClick_(this.state.email, this.state.password);
+        this.setState({
+            email: "",
+            password: "",
+        })
     }
     render(){
+        let {email, password} = this.state;
         return(
           <>
             <p>Email</p>
-            <input onChange={this.handleChangeEmail}></input>
+            <input onChange={this.handleChangeEmail} value={email}></input>
             <p>Password</p>
-            <input type="email" onChange={this.handleChangePassword}></input>
+            <input type="email" onChange={this.handleChangePassword} value={password}></input>
             <div>
               <button onClick={this.handleClick}>Log in user</button>
             </div>

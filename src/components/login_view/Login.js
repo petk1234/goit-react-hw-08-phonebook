@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import LoginForm from './LoginForm';
-export default class LogIn extends Component{
+import registerOperations from '../../redux/registr/registerOperations';
+import { connect } from 'react-redux';
+class LogIn extends Component{
     state ={
         email:"",
         password:"",
         activeUser:"",
     }
     handleClick_ = (email_, password_) =>{
-       this.setState(prevState =>{
-           return{
-               email: email_,
-               password: password_,
-               activeUser: email_,
-           }
-       })
+      let state_={
+          email: email_,
+          password: password_,
+          isLoading: false,
+      }
+      this.props.handleClick(state_);
     }
     render(){
         return(
@@ -24,3 +25,8 @@ export default class LogIn extends Component{
         )
     }
 }
+
+const mapDispatchToProps ={
+    handleClick: registerOperations.loginUser,
+}
+export default connect(null, mapDispatchToProps)(LogIn)

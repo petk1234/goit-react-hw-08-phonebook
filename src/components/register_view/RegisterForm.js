@@ -17,7 +17,7 @@ export default class RegisterForm extends Component{
     }
     handleChangePassword = e =>{
         this.setState({
-            password:e.target.password,
+            password:e.target.value,
         })
     }
     handleClick = () =>{
