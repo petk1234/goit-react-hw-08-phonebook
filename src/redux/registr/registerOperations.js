@@ -38,7 +38,7 @@ const loginUser = credentials => dispatch =>{
     })
     .catch(error =>{
         console.log(error);
-        dispatch(registrActions.loginUserError());
+        dispatch(registrActions.loginUserError(error.type));
     })
 }
 
@@ -53,4 +53,29 @@ const logoutUser = () => dispatch =>{
        dispatch(registrActions.logoutUserError(error));
    })
 }
-export default {addUser, loginUser, logoutUser};
+
+const getRegisterUser = () => (dispatch, getState) =>{
+    console.log(getState());
+    let{
+        auth:{
+            token_users,
+        }
+    } = getState(); // деструктуризация (по аналогии с let {name, number, filter} = this.state), но просто с вложенностью
+    console.log(token_users);
+    if(token_users === null){
+        console.log("pusto");
+    }
+    else{
+        token.set(token_users);
+        dispatch(registrActions.getRegisterUserRequest());
+        axios.get('/users/current')
+        .then(res => res.data)
+        .then(data =>{
+            dispatch(registrActions.getRegisterUserSuccess(data));
+        })
+        .catch(error =>{
+            dispatch(registrActions.getRegisterUserError(error));
+        });
+    }
+}
+export default {addUser, loginUser, logoutUser, getRegisterUser};

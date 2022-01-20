@@ -15,6 +15,8 @@ const getRegisterUserRequest = createAction('getregister/request');
 const getRegisterUserSuccess = createAction('getregister/success');
 const getRegisterUserError = createAction('getregister/error');
 
+const closeNotice = createAction('close/notice');
+
 export default{
     registerUserRequest,
     registerUserSuccess,
@@ -28,4 +30,5 @@ export default{
     getRegisterUserRequest,
     getRegisterUserSuccess,
     getRegisterUserError,
+    closeNotice,
 }

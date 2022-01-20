@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import RegisterForm from './RegisterForm';
 import { connect } from "react-redux";
+import AuthError from '../auth_error/AuthError';
 import registerOperations from '../../redux/registr/registerOperations';
 class Register extends Component{
     state ={
@@ -28,14 +29,28 @@ class Register extends Component{
     }
     render(){
         return(
-            <>
-              <p>It is register page</p>
-              <RegisterForm onClick_ = {this.handleClick_}> </RegisterForm>
-            </>
+            // <Fragment>
+            // {this.props.error === '' ?
+            // <>
+            //   <p>It is Register page</p>
+            //   <RegisterForm onClick_ = {this.handleClick_}> </RegisterForm>
+            // </>
+            // :
+            // <AuthError></AuthError>
+            // }
+            // </Fragment>
+             <AuthError>
+                 <RegisterForm onClick_ = {this.handleClick_}> </RegisterForm>
+             </AuthError>
         )
+    }
+}
+const mapStateToProps = state =>{
+    return{
+        error: state.auth.error,
     }
 }
 const mapDispatchToProps = {
       handleClick: registerOperations.addUser
 }
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

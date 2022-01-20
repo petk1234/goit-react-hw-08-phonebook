@@ -1,54 +1,60 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import InputForm from './tasks_components/InputForm';
 import TasksList from './tasks_components/TasksList';
 import FilterEl from './tasks_components/FilterEl';
-export default class Tasks extends Component{
+import { connect } from 'react-redux';
+import tasksOperations from '../../redux/tasks/tasksOperations';
+import tasksActions from '../../redux/tasks/tasksActions';
+import registerOperations from '../../redux/registr/registerOperations';
+class Tasks extends Component{
     state = {
         tasks: [],
         reserve_input:"",
         filter: "",
     }
-    componentDidMount = () =>{
-        let myStorage = window.localStorage;
-        if(JSON.stringify(myStorage.getItem('tasks')).slice(1,-1).length > "".length){
-          this.setState({
-              tasks: JSON.stringify(myStorage.getItem('tasks')).slice(1, -1).split(','),
-          })
-        }
-    }
 
     handleClick_ = (name_, number_) =>{
-        //console.log(input);
-        if( this.state.tasks.find(task => task==`${name_}: ${number_}`) == undefined){
-          this.setState({
-               tasks: this.state.tasks.concat(`${name_}: ${number_}`),     
-          })
-          localStorage.setItem('tasks',this.state.tasks.concat(`${name_}: ${number_}`));
+        let state_ = {
+            name: name_,
+            number: number_,
         }
+        this.props.handleClick(state_);
     }
     handleChangeFilter = filter_ =>{
-       this.setState({
-           filter: filter_,
-       })
+       this.props.handleFilter(filter_);
     }
-    handleDelete = (id_) =>{
-        console.log('id: ',id_);
-        this.setState({
-            tasks: this.state.tasks.filter((task, id) => id!==id_),
-        })
-        localStorage.setItem('tasks', this.state.tasks.filter((task, id) => id!==id_));
+    handleClickAll_ = () =>{
+        this.props.handleClickAll();
     }
-
 
     render(){
-        let { tasks, reserve_input, filter } = this.state;
+        //let { tasks, reserve_input, filter } = this.state;
         return(
-          <>
+          <Fragment>
             <p>It is Tasks page</p>
             <InputForm onClick_={this.handleClick_}></InputForm>
             <FilterEl onChangeFilter = {this.handleChangeFilter}></FilterEl>
-            <TasksList onClick_={this.handleDelete} tasks = {tasks} filter = {filter}></TasksList>
-          </>
+            {this.props.token !== null &&
+              (<TasksList 
+                  tasks = {this.props.tasks} 
+                  filter = {this.props.filter}>  
+               </TasksList>)
+            }
+            <button onClick={this.props.handleClickAll}>All tasks</button>
+          </Fragment>
         )
     }
 }
+const mapStateToProps = state =>{
+    return{
+        tasks: state.tasks.tasks,
+        filter: state.tasks.filter,
+        token: state.auth.token_users,
+    }
+}
+const mapDispatchToProps ={
+   handleClick: tasksOperations.addTask,
+   handleClickAll: tasksOperations.getTasks,
+   handleFilter: tasksActions.filterAction,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks) 
