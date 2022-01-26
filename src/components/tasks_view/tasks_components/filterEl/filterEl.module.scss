@@ -1,0 +1,21 @@
+$standartCircle: 6px;
+$colorTheme: #c9c1dd;
+.outContainer{
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+}
+.filterContainer{
+    display: flex;
+    width: 350px;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.text{
+    padding-left: 50px;
+}
+.filterEl{
+    border-radius: $standartCircle;
+    border-color: $colorTheme;
+}

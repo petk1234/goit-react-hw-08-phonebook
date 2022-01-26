@@ -12,21 +12,30 @@ import registerOperations from './redux/registr/registerOperations';
 import tasksOperations from './redux/tasks/tasksOperations';
 import HiddenRoute from './HiddenRoute';
 import PublicRoute from './PublicRoute';
+import app from "./app.module.scss";
 class App extends Component{
   componentDidMount = () =>{
      this.props.initialAuthMount();
      this.props.initialTasksMount();
   }
+  componentDidUpdate = () =>{
+    this.props.initialTasksMount();
+  }
   render(){
   let { home, register, login, tasks } = routes;
   return (
-    <div className="App">
-        <Link to={home}>Home </Link>
-        {this.props.isAuthorized !== null &&
-         <Link to={tasks}>Tasks </Link>
-        }
+    <div className={app.app}>
+        <wc-toast></wc-toast>
+        <header className={app.header}>
+          <div className={app.mainRefs}>
+            <Link className={app.link} to={home}>Home </Link>
+            {this.props.isAuthorized !== null &&
+              <Link className={app.link} to={tasks}>Tasks </Link>
+            }
+          </div>
+          <UserMenu></UserMenu>
+        </header> 
         {/* </div>{this.props.isAuthorized !== null && */}
-        <UserMenu></UserMenu> 
          {/* } */}
         <Routes>
           <Route path={home} element={<Home />} />

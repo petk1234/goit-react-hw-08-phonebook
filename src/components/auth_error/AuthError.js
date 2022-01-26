@@ -1,16 +1,20 @@
 import { connect } from "react-redux";
 import React, {Component, Fragment} from 'react';
 import registrActions from "../../redux/registr/registrActions";
+import { toast } from 'wc-toast';
 require('react-dom');
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 class AuthError extends Component{
-    handleClose = () =>{
-        this.props.handleClose_();
-    }
+    // handleClose = () =>{
+    //     this.props.handleClose_();
+    // }
     render(){
-    console.log(this.props.error);
-    // console.log(this.props.children.type.name);
+    if(this.props.error !== ""){
+      toast.error('Authentication failed');
+      this.props.handleClose_();
+    }
+    console.log(this.props.children._owner.elementType.name);
     return(
         //<p>It is an {this.props.error} </p>
         // <Alert variant='danger' style={{ width: "42rem" }}>
@@ -21,20 +25,20 @@ class AuthError extends Component{
         // </Alert>
 
         <>
-            {this.props.error === '' ?
+            {this.props.error === '' &&
             <>
-              <p>It is {this.props.children.type.name} page</p>
+              <h1>{this.props.children._owner.elementType.name} page</h1>
               {this.props.children}
             </>
-            :
-            <>
-              <p>It is {this.props.children.type.name} page</p>
-              {this.props.children}
-              <div>
-                <p>It is an {this.props.error} </p>
-                <button onClick={this.handleClose}>well</button>
-              </div>
-            </>
+            // :
+            // <>
+            //   <h1>{this.props.children.type.name} page</h1>
+            //   {this.props.children}
+            //   <div>
+            //     <p>It is an {this.props.error} </p>
+            //     <button onClick={this.handleClose}>well</button>
+            //   </div>
+            // </>
             }
         </>
     )

@@ -1,0 +1,43 @@
+$colorTheme: #c9c1dd;
+$colorActive: #45a3dc;
+$colorActiveHover: #7fc685;
+$standartCircle: 6px;
+.component{
+   //display: inline-block;
+    display: flex;
+    border-radius: $standartCircle;
+    width: 230px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    &NotLogin{
+      text-align: center;
+      width: 150px;
+    }
+    &IsLoading{
+        width: 100px;
+        margin-bottom: 20px;
+    }
+}
+.op{
+    display: inline;
+}
+.p{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.refs{
+    text-decoration: none;
+    color: #000;
+    &:hover{
+      color: $colorTheme;
+      text-decoration:underline;
+    }
+    &Active{
+        color: $colorTheme;
+        cursor: pointer;
+    }
+    &Active:hover{
+        color: $colorActiveHover;
+        text-decoration: underline;
+    }
+}

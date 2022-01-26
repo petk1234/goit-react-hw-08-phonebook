@@ -1,0 +1,28 @@
+$colorTheme: #c9c1dd;
+$standartCircle: 6px;
+.container{
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    margin-bottom: 20px;
+}
+.groupContainer{
+    display: flex;
+    width: 350px;
+    height: 30px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.inputEl{
+    border-radius: $standartCircle;
+    border-color: $colorTheme;
+}
+// .buttonDiv{
+//     width: 400px;
+//     display: flex;
+//     justify-content: center;
+// }
+.buttonAdmit{
+    width: 400px;
+}

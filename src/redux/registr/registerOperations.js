@@ -1,5 +1,5 @@
 import axios from "axios";
-import registrActions from "./registrActions";
+import registrActions from "./registrActions.js";
 axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
 const token ={
     set(token){

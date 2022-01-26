@@ -4,33 +4,43 @@ import { Link } from 'react-router-dom';
 import routes from "../../routes/routes";
 import registerOperations from "../../redux/registr/registerOperations";
 import tasksActions from "../../redux/tasks/tasksActions";
+import userMenu from "./userMenu.module.scss";
 class Logout extends Component{
     render(){
       console.log(this.props.token);
         return(
             <Fragment>
               {((this.props.isGetting=== false) || (this.props.isLoading=== false)) ?(
-              <header>
+              <div className={userMenu.component}>
                 {this.props.token !== null ?( 
                   <Fragment>
-                  <p>Log out {this.props.user_name}</p>
+                  <p className={userMenu.p}>Welcome, {this.props.user_name}</p>
                   <div>
-                    <button onClick={() =>{
-                      this.props.logOut();
-                      this.props.logOutTasks();
-                    }}>Log out</button>
+                    <a 
+                      className={userMenu.refsActive}
+                      onClick={() =>{
+                        this.props.logOut();
+                        this.props.logOutTasks();
+                    }}>Log out</a>
                   </div>
                   </Fragment>
                   ):
-                  <Fragment>
-                    <Link to={routes.register}>Register </Link>
-                    <Link to={routes.login}>Log in </Link>
-                  </Fragment>
+                  <div className={userMenu.componentNotLogin}>
+                    <Link className={userMenu.refs} to={routes.register}>Register </Link>
+                    <Link className={userMenu.refs} to={routes.login}>Log in </Link>
+                  </div>
                 }
-              </header>
+              </div>
               ):
-              (<p>Loading...</p>)
-              }
+               (<div className={userMenu.componentIsLoading}>
+                  <span aria-hidden="true">🕙</span>
+                  <p className={userMenu.op}>Loading</p>
+                </div>)
+              //  {/* () =>{ */}
+              //   console.log('piiiiiiiidor');
+              //   toast.loading('Authenticating...', { duration: 4000 });}
+              // }
+    }
             </Fragment>
         )
     }

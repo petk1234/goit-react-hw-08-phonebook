@@ -1,0 +1,32 @@
+$colorTheme: #c9c1dd;
+$colButtonDel: #e00040;
+$standartCircle: 6px;
+.task{
+    width: 350px;
+    height: 40px;
+    outline: 1px solid $colorTheme;
+    border-radius: $standartCircle;
+    list-style: none;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    &:first-of-type{
+        margin-top: 5px;
+    }
+    &:last-of-type{
+        margin-bottom: 5px;
+    }
+}
+
+.button{
+    width: 23px;
+    height: 25px;
+    border-radius: $standartCircle;
+    background-color: $colorTheme;
+    &:hover{
+       background: url(../photos/closeButton.png) no-repeat top left;
+}
+}
