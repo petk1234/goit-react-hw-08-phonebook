@@ -9,11 +9,17 @@ class AuthError extends Component{
     // handleClose = () =>{
     //     this.props.handleClose_();
     // }
-    render(){
-    if(this.props.error !== ""){
-      toast.error('Authentication failed');
-      this.props.handleClose_();
+    componentDidUpdate = () =>{
+        if(this.props.error !== ""){
+            toast.error('Authentication failed');
+            this.props.handleClose_();
+          }
     }
+    render(){
+    // if(this.props.error !== ""){
+    //   toast.error('Authentication failed');
+    //   this.props.handleClose_();
+    // }
     console.log(this.props.children._owner.elementType.name);
     return(
         //<p>It is an {this.props.error} </p>
@@ -53,3 +59,5 @@ const mapDispatchToProps ={
    handleClose_: registrActions.closeNotice,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AuthError)
+
+
